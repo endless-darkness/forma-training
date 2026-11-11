@@ -296,7 +296,10 @@ if('serviceWorker' in navigator && !['localhost','127.0.0.1'].includes(location.
   navigator.serviceWorker.register('./sw.js').then(registration=>{
     function updateReady(){if(registration.waiting){waitingWorker=registration.waiting;renderNotice();}}
     updateReady();
-    registration.addEventListener('updatefound',()=>registration.installing?.addEventListener('statechange',()=>{if(registration.installing?.state==='installed')updateReady();}));
+    registration.addEventListener('updatefound',()=>{
+      const installing=registration.installing;
+      installing?.addEventListener('statechange',()=>{if(installing.state==='installed')updateReady();});
+    });
   }).catch(()=>{toast('Offline setup is unavailable; workout logging still works while the page is open.');});
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(waitingWorker)location.reload();});
 }
