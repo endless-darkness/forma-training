@@ -1,0 +1,13 @@
+{
+  "name": "forma-training",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Private, browser-local workout tracking with adaptive progression.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
