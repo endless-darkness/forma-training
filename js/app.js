@@ -209,6 +209,7 @@ function download(content,name) {
 }
 
 document.addEventListener('click',event=>{
+  if(event.target.closest('.skip-link')) {event.preventDefault();main.focus();return;}
   const button=event.target.closest('[data-action]');if(!button) return;
   const {action,id,ex:exId}=button.dataset;
   const readOnlyActions=['settings','about','close-dialog','export','export-original','import','confirm-import','program','resume','reload','update','skip-timer','extend-timer','timer','checkin'];

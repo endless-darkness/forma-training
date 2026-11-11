@@ -18,7 +18,9 @@ for (const asset of assets) {
   const source = path.join(root, asset);
   for (const file of asset.includes('.') ? [source] : await files(source)) hash.update(await readFile(file));
 }
-const worker = (await readFile(path.join(root, 'sw.js'), 'utf8')).replaceAll('__FORMA_CACHE_VERSION__', hash.digest('hex').slice(0,16));
+const workerSource = await readFile(path.join(root, 'sw.js'), 'utf8');
+hash.update(workerSource);
+const worker = workerSource.replaceAll('__FORMA_CACHE_VERSION__', hash.digest('hex').slice(0,16));
 await writeFile(path.join(output, 'sw.js'), worker);
 await writeFile(path.join(output, '.nojekyll'), '');
 console.log('Built static app in _site/ (no personal data or server secrets).');
